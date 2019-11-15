@@ -18,7 +18,7 @@ export default props => {
        component matching the name on the provided file. Pass
        it any props needed by the child component*/}
       {ops.map((op, index) => (
-        <OperatorButton key={index} operator={op} />
+        <OperatorButton key={index} operator={op} clickHandler={props.clickHandler} />
       ))}
     </div>
   );

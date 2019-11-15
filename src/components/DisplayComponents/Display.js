@@ -1,10 +1,10 @@
 import React from "react";
 
-export default ({ result }) => {
+export default (props) => {
   return (
     <div className="display">
       {/* Display any props data here */}
-      {result}
+      {props.total}
     </div>
   );
 };

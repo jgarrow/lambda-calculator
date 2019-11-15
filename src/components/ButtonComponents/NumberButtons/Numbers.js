@@ -21,7 +21,7 @@ export default props => {
        component matching the name on the provided file. Pass
        it any props needed by the child component*/}
       {nums.map((num, index) => (
-        <NumberButton key={index} number={num}/>
+        <NumberButton key={index} number={num} clickHandler={props.clickHandler}/>
       ))}
     </div>
   );

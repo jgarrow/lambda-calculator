@@ -16,7 +16,7 @@ export default props => {
        component matching the name on the provided file. Pass
        it any props needed by the child component*/}
        {specialChars.map((char, index) => (
-         <SpecialButton key={index} special={char}/>
+         <SpecialButton key={index} special={char} clickHandler={props.clickHandler}/>
        ))}
     </div>
   );
