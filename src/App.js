@@ -5,15 +5,23 @@ import "./App.css";
 
 // Logo has already been provided for you. Do the same for the remaining components
 import Logo from "./components/DisplayComponents/Logo";
-import Display from "./components/DisplayComponents/Display"
-import Operators from "./components/ButtonComponents/OperatorButtons/Operators"
-import Numbers from "./components/ButtonComponents/NumberButtons/Numbers"
-import Specials from "./components/ButtonComponents/SpecialButtons/Specials"
-
+import Display from "./components/DisplayComponents/Display";
+import Operators from "./components/ButtonComponents/OperatorButtons/Operators";
+import Numbers from "./components/ButtonComponents/NumberButtons/Numbers";
+import Specials from "./components/ButtonComponents/SpecialButtons/Specials";
 
 // num1 = concat of all number buttons pressed BEFORE any operator or special buttons (besides C) are pressed
 // num2 = concat of all number buttons pressed AFTER any operator or special buttons (besides C) are pressed
-// operate = variable that stores whichever operator/special button was pressed 
+// operate = variable that stores whichever operator/special button was pressed
+
+// math functions
+const Maths = {
+  "/": (x, y) => x / y,
+  "*": (x, y) => x * y,
+  "-": (x, y) => x - y,
+  "+": (x, y) => x + y,
+  "%": (x, y) => x % y
+};
 
 function App() {
   // STEP 5 - After you get the components displaying using the provided data file, write your state hooks here.
@@ -23,59 +31,56 @@ function App() {
   // Don't forget to pass the functions (and any additional data needed) to the components as props
 
   const [total, setTotal] = useState("0");
-  const [num1, setNum1] = useState("");
-  const [num2, setNum2] = useState("");
+  const [displayNum, setDisplayNum] = useState("0");
+  // const [num1, setNum1] = useState("");
+  // const [num2, setNum2] = useState("");
   const [operate, setOperate] = useState("");
 
+  // display functions
   function numClick(num) {
-    let totalConcat = total;
-    if (total === '0') {
-      if (num === '0') {
+    let totalConcat = displayNum;
+    if (displayNum === "0") {
+      if (num === "0") {
         return;
       }
       totalConcat = "";
     }
+
     totalConcat += num;
-    setTotal(totalConcat);
+    setDisplayNum(totalConcat);
   }
 
-
-  function multiply(numOne, numTwo) {
-    return numOne * numTwo;
+  function operateClick(op) {
+    calculateTotal();
+    setOperate(op);
+    setDisplayNum("");
   }
 
-  function divide(numOne, numTwo) {
-    return numOne / numTwo;
+  function calculateTotal() {
+    let result = displayNum;
+    if (operate) {
+      console.log('Operator:', operate);
+      result = Maths[operate](Number(total), Number(displayNum));
+      console.log('Result:', result);
+    }
+    setTotal(result);
   }
 
-  function add(numOne, numTwo) {
-    return numOne + numTwo;
-  }
-
-  function subtract(numOne, numTwo) {
-    return numOne - numTwo;
-  }
-
-  function modulo(numOne, numTwo) {
-    return numOne % numTwo;
-  }
-
-//  when = button is clicked, setResult()
-// when C button is clicked, setResult(0)
-
+  //  when = button is clicked, setResult()
+  // when C button is clicked, setResult(0)
 
   return (
     <div className="container">
       <Logo />
       <div className="App">
         {/* STEP 4 - Render your components here and be sure to properly import/export all files */}
-        <Display total={total}/>
+        <Display total={displayNum || total} />
         <div className="btns-container">
           <div className="darkblue-btns">
             <Specials />
-            <Numbers clickHandler={(num) => numClick(num)}/>
+            <Numbers clickHandler={num => numClick(num)} />
           </div>
-          <Operators />
+          <Operators clickHandler={operator => operateClick(operator)} />
         </div>
       </div>
     </div>
