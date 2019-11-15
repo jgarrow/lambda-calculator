@@ -15,12 +15,13 @@ import Specials from "./components/ButtonComponents/SpecialButtons/Specials";
 // operate = variable that stores whichever operator/special button was pressed
 
 // math functions
-const Maths = {
+const MATHS = {
   "/": (x, y) => x / y,
   "*": (x, y) => x * y,
   "-": (x, y) => x - y,
   "+": (x, y) => x + y,
-  "%": (x, y) => x % y
+  "=": (x) => x,
+  "%": x => x / 100
 };
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
   // the "5" button, or the operator if they click one of those buttons) and then call your setter function to update state.
   // Don't forget to pass the functions (and any additional data needed) to the components as props
 
-  const [total, setTotal] = useState("0");
+  const [total, setTotal] = useState("");
   const [displayNum, setDisplayNum] = useState("0");
   // const [num1, setNum1] = useState("");
   // const [num2, setNum2] = useState("");
@@ -51,19 +52,29 @@ function App() {
   }
 
   function operateClick(op) {
-    calculateTotal();
+    if (displayNum !== "") {
+      calculateTotal();
+      setDisplayNum("");
+    }
     setOperate(op);
-    setDisplayNum("");
   }
 
   function calculateTotal() {
     let result = displayNum;
     if (operate) {
-      console.log('Operator:', operate);
-      result = Maths[operate](Number(total), Number(displayNum));
-      console.log('Result:', result);
+      console.log("Operator:", operate);
+      result = MATHS[operate](Number(total), Number(displayNum));
+      console.log("Result:", result);
     }
     setTotal(result);
+  }
+
+  function specialClick(special) {
+    if (special === "C") {
+      setTotal("");
+      setDisplayNum("0");
+      setOperate("");
+    }
   }
 
   //  when = button is clicked, setResult()
@@ -77,7 +88,7 @@ function App() {
         <Display total={displayNum || total} />
         <div className="btns-container">
           <div className="darkblue-btns">
-            <Specials />
+            <Specials clickHandler={special => specialClick(special)} />
             <Numbers clickHandler={num => numClick(num)} />
           </div>
           <Operators clickHandler={operator => operateClick(operator)} />
