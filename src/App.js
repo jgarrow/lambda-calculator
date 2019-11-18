@@ -10,10 +10,6 @@ import Operators from "./components/ButtonComponents/OperatorButtons/Operators";
 import Numbers from "./components/ButtonComponents/NumberButtons/Numbers";
 import Specials from "./components/ButtonComponents/SpecialButtons/Specials";
 
-// num1 = concat of all number buttons pressed BEFORE any operator or special buttons (besides C) are pressed
-// num2 = concat of all number buttons pressed AFTER any operator or special buttons (besides C) are pressed
-// operate = variable that stores whichever operator/special button was pressed
-
 // math functions
 const MATHS = {
   "/": (x, y) => x / y,
@@ -34,8 +30,6 @@ function App() {
 
   const [total, setTotal] = useState("");
   const [displayNum, setDisplayNum] = useState("0");
-  // const [num1, setNum1] = useState("");
-  // const [num2, setNum2] = useState("");
   const [operate, setOperate] = useState("");
 
   // display functions

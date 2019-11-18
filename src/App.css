@@ -57,6 +57,10 @@ button {
   background-color: rgb(0, 115, 146);
 }
 
+.op-btn:focus {
+  background-color: rgb(5, 166, 209);
+}
+
 .num-btn {
   background-color: rgb(8, 68, 122);
 }
