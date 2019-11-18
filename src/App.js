@@ -20,8 +20,9 @@ const MATHS = {
   "*": (x, y) => x * y,
   "-": (x, y) => x - y,
   "+": (x, y) => x + y,
-  "=": (x) => x,
-  "%": x => x / 100
+  "=": x => x,
+  "%": x => x / 100,
+  "+/-": x => x * -1
 };
 
 function App() {
@@ -74,11 +75,26 @@ function App() {
       setTotal("");
       setDisplayNum("0");
       setOperate("");
+    } else if (special === "+/-") {
+      let display = displayNum * -1;
+      if (!displayNum) {
+        display = total * -1;
+        setTotal(display);
+      } else {
+        setDisplayNum(display);
+      }
+      setOperate("");
+    } else if (special === "%") {
+      let result = displayNum;
+      if (!displayNum) {
+        result = MATHS[special](Number(total));
+        setTotal(result);
+      } else {
+        result = MATHS[special](Number(displayNum));
+        setDisplayNum(result);
+      }
     }
   }
-
-  //  when = button is clicked, setResult()
-  // when C button is clicked, setResult(0)
 
   return (
     <div className="container">
